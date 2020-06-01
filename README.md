@@ -6,3 +6,11 @@
 # Such deine IPv6-Adresse:
 
     wget -qO - http://stdio.be|grep title|egrep -o [:0-9a-f]+{8}
+    
+    oder
+    
+    wget -qO - http://stdio.be|head -n 1|egrep -o [:0-9a-f]+{8}
+    
+    oder
+    
+    wget -qO - nsx.de|tail -n 4|head -n 1
