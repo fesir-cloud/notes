@@ -4,6 +4,7 @@
 
 
 # Such deine IPv6-Adresse:
+Folgende zeilen schreiben die aktuelle IPv6 Adresse in STOUT:
 
     wget -qO - http://stdio.be|grep title|egrep -o [:0-9a-f]+{8}
     
