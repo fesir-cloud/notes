@@ -93,7 +93,7 @@ Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
     "
 
 
-Userskrpt in /usr/bin/:
+Userskrpt in /usr/bin/ipv6-check schreiben
 
 
     #!/bin/bash
