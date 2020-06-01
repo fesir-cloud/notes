@@ -107,4 +107,4 @@ Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
 
     [Install]
     WantedBy=multi-user.target
-    '
+    '>/etc/systemd/system/ipv6-check.service
