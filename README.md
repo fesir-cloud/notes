@@ -13,23 +13,24 @@ oder:
     
     II: wget -qO - nsx.de|tail -n 4|head -n 1
     
-direkt in eine Logdatei("IPv6.log"):
+direkt in eine Logdatei("ipv6.l"):
     
-    while true;do wget -qO - nsx.de|tail -n 4|head -n 1 >IPv6.log;sleep 1;done
+    while true;do wget -qO - nsx.de|tail -n 4|head -n 1 >ipv6.l;sleep 1;done
 
 Schreibe die aktuelle IPv6-Adresse in "v6.l" und teste jede sekunde ob diese noch übereinstimmt, wenn nicht überschreibe "v6.l":
 
-    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(cat v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >v6.l||printf "IPv6 unchanged\n";sleep 1;done 
+    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(cat ipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >ipv6.l||printf "IPv6 unchanged\n";sleep 1;done 
     
-Wie oben, nur überschreibe "v6.l" nicht, sondern lege eine Liste an:
+Wie oben, nur überschreibe "ipv6.l" nicht, sondern lege eine Liste an:
 
-    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l||printf "IPv6 unchanged\n";sleep 1;done
+    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l||printf "IPv6 unchanged\n";sleep 1;done
     
-Als  deamon
+Als  non HANGUP Prozess
 
-    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
+    $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.lipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l;sleep 1;done)&
 
-# Scripte als &eadmon:
+
+# Scripte als deadmon:
 https://unix.stackexchange.com/questions/426862/proper-way-to-run-shell-script-as-a-daemon
 https://stackoverflow.com/questions/3430330/best-way-to-make-a-shell-script-daemon
 
@@ -41,26 +42,26 @@ nohup *** & //schneller Weg über nohup
                 A
                 | 
     ____________|__________________________________________________________________________________________________________
-    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
+    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l;sleep 1;done
     _______________________________________________________________________________________________________________________
     
-.
+
+Starte Skript als noHANGUP
     
+    nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l;sleep 1;done) &
     
-    nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done) &
+Starte Skript als noHANGUP und schreibt STERR und STOUT In ipv6-check.log:
     
-    
-    
-    nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done) &
+    nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l;sleep 1;done) 0<&- &> ipv6-check.log &
 
  
-Schreibe das script in ipv6check.sh, welches in "ipv6" die aktuelle IPv6 schreeibt, mach es ausführbar, und startet es mit nohup als nicht aufhängbarer Prozess.
+Schreibe das script in ipv6check.sh, welches in "ipv6.l" die aktuelle IPv6 schreeibt, mach es ausführbar, und starte es mit nohup als nicht aufhängbarer Prozess.
 
                 nohup ./myscript 0<&- &> file.log &   
                 // Grundlegende Syntax: startet myscript und schreibt STERR und STOUT In file.log
                                                         A
     Schreibt das obige Skript in "ipv6-check.sh" und ...|
-    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done">ipv6-check.sh;sudo chmod +x ipv6-check.sh;nohup ./ipv6-check.sh 0<&- &> ipv6-check.log
+    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l;sleep 1;done">ipv6-check.sh;sudo chmod +x ipv6-check.sh;nohup ./ipv6-check.sh 0<&- &> ipv6-check.log
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es ein bestimmtes Signal ignoriert. Damit ist es noch weit davon entfernt, eine Lösung für alle möglichen Probleme eines asynchronen Programmbetriebs anzubieten, wie es etwa bei einem vollständigen Stapelverarbeitungssystem der Fall sein könnte.     --    Wikipedia (https://de.wikipedia.org/wiki/Nohup)
@@ -69,12 +70,12 @@ nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es
 
     
     
-# Erstellen einer systemd-Einheit um das IPv6-Skript als Dämon zu starten:
+# Erstellen einer systemd-Einheit um ein Skript als Dämon zu starten:
 
 
 Skript in /usr/bin/ipv6-check schreiben
 
-    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done">/usr/bin/ipv6-check
+    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done">/usr/bin/ipv6-check
 
 
 Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
