@@ -6,15 +6,12 @@
 # Such deine IPv6-Adresse:
 Folgende zeilen schreiben die aktuelle IPv6 Adresse in STOUT:
 
-    wget -qO - http://stdio.be|grep title|egrep -o [:0-9a-f]+{8}
+    
+    I: wget -qO - http://stdio.be|head -n 1|egrep -o [:0-9a-f]+{8}
     
 oder:
     
-    wget -qO - http://stdio.be|head -n 1|egrep -o [:0-9a-f]+{8}
-    
-oder:
-    
-    wget -qO - nsx.de|tail -n 4|head -n 1
+    II: wget -qO - nsx.de|tail -n 4|head -n 1
     
 direkt in eine Logdatei("IPv6.log"):
     
@@ -38,17 +35,55 @@ https://stackoverflow.com/questions/3430330/best-way-to-make-a-shell-script-daem
 
 nohup *** & //schneller Weg über nohup
 
-
+    
+    
+    nohup $(myscript) 0<&- &> file.log &  ///Grundlegende Syntax: startet myscript und schreibt STERR und STOUT In file.log
+                A
+                | 
+    ____________|__________________________________________________________________________________________________________
     while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
+    _______________________________________________________________________________________________________________________
     
-    nohup ./myscript 0<&- &> file.log &
+    nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done) &
     
-    nohup $(myscript) 0<&- &> file.log &
+    
+    
+    nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done) &
+
  
-Schreibt das script in ipv6check.sh, mmach esss ausführbar, und startet es mit nohup als nicht aufhängbarer Prozess.
+Schreibe das script in ipv6check.sh, welches in "ipv6" die aktuelle IPv6 schreeibt, mach es ausführbar, und startet es mit nohup als nicht aufhängbarer Prozess.
 
-    printf " while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO luschyr@M192-AV3:~$ printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done">ipv6check.sh;sudo chmod +x ipv6check.sh;nohup ./test.sh 0<&- &> ipv6.log
+                nohup ./myscript 0<&- &> file.log &   
+                // Grundlegende Syntax: startet myscript und schreibt STERR und STOUT In file.log
+                                                        A
+    Schreibt das obige Skript in "ipv6-check.sh" und ...|
+    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done">ipv6-check.sh;sudo chmod +x ipv6-check.sh;nohup ./ipv6-check.sh 0<&- &> ipv6-check.log
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es ein bestimmtes Signal ignoriert. Damit ist es noch weit davon entfernt, eine Lösung für alle möglichen Probleme eines asynchronen Programmbetriebs anzubieten, wie es etwa bei einem vollständigen Stapelverarbeitungssystem der Fall sein könnte.     --    Wikipedia (https://de.wikipedia.org/wiki/Nohup)
+nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es ein bestimmtes Signal ignoriert. Damit ist es noch weit davon entfernt, eine Lösung für alle möglichen Probleme eines asynchronen Programmbetriebs anzubieten, wie es etwa bei einem vollständigen Stapelverarbeitungssystem der Fall sein könnte.     --    Wikipedia (https://de.wikipedia.org/wiki/Nohup)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+    
+    
+# Erstellen einer systemd-Einheit um das IPv6-Skript als Dämon zu starten:
+
+
+Skript in /usr/bin/ipv6-check schreiben
+
+    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done">/usr/bin/ipv6-check
+
+
+Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
+    
+    printf "
+    [Unit]
+    Description=ipv6-check
+
+    [Service]
+    ExecStart=/usr/bin/ipv6-check
+    Restart=on-failure
+
+    [Install]
+    WantedBy=multi-user.target
+    "
