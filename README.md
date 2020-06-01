@@ -20,9 +20,10 @@ Folgende zeilen schreiben die aktuelle IPv6 Adresse in STOUT:
     
     while true;do wget -qO - nsx.de|tail -n 4|head -n 1 >IPv6.log;sleep 1;done
 
-# Schreibe IPv6 adresse in v6.l und teste jede sekunde ob diese noch übereinstimmt, wenn nicht überschreibe v6.l
+    # Schreibe die aktuelle IPv6-Adresse in "v6.l" und teste jede sekunde ob diese noch übereinstimmt, wenn nicht überschreibe "v6.l"
+
     while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(cat v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >v6.l||printf "IPv6 unchanged\n";sleep 1;done
     
     
-# Wie oben, nur überschreibe v6.l nicht, sondern lege eine Liste an.
+# Wie oben, nur überschreibe "v6.l" nicht, sondern lege eine Liste an.
     while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l||printf "IPv6 unchanged\n";sleep 1;done
