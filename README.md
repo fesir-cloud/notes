@@ -75,12 +75,30 @@ nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es
 
 Skript in /usr/bin/ipv6-check schreiben
 
-    printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done">/usr/bin/ipv6-check
+    printf 'while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done'>/usr/bin/ipv6-check
+    
+    
+    
+    
+    printf '
+    #!/bin/bash
+    # Dieses Skript befindet sich in /usr/bin/ipv6-check
 
+    output_file='ipv6.l'
+
+    function ipv6-check() {
+        [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 "${output_file}")" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>"${output_file}"
+    }
+    
+    while true;
+        do ipv6-check;
+        sleep 1;
+    done
+    '
 
 Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
     
-    printf "
+    printf '
     [Unit]
     Description=ipv6-check
 
@@ -90,7 +108,7 @@ Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
 
     [Install]
     WantedBy=multi-user.target
-    "
+    '
 
 
 Userskrpt in /usr/bin/ipv6-check schreiben
