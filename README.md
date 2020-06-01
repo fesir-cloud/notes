@@ -73,12 +73,11 @@ nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es
 # Erstellen einer systemd-Einheit um ein Skript als Dämon zu starten:
 
 
-Skript in /usr/bin/ipv6-check schreiben
+Skript(in kurzschreibweise) in /usr/bin/ipv6-check schreiben
 
     printf 'while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done'>/usr/bin/ipv6-check
     
-    
-    
+oder Skript(in Objektschreibweise) in /usr/bin/ipv6-check schreiben
     
     printf '
     #!/bin/bash
