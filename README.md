@@ -30,4 +30,26 @@ Wie oben, nur überschreibe "v6.l" nicht, sondern lege eine Liste an:
     
 Als  deamon
 
-    $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done)&
+    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
+
+# Scripte als &eadmon:
+https://unix.stackexchange.com/questions/426862/proper-way-to-run-shell-script-as-a-daemon
+https://stackoverflow.com/questions/3430330/best-way-to-make-a-shell-script-daemon
+
+nohup *** & //schneller Weg über nohup
+
+
+    nohup ./myscript 0<&- &> file.log &
+    nohup $(myscript) 0<&- &> file.log &
+    
+    
+    
+    
+ while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
+ 
+ 
+ 
+ 
+ 
+    user@host:~$ printf " while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO luschyr@M192-AV3:~$ printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done">test.sh;sudo chmod +x test.sh;nohup ./test.sh 0<&- &> ipv6.log
+
