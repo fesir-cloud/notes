@@ -93,7 +93,7 @@ oder Skript(in Objektschreibweise) in /usr/bin/ipv6-check schreiben
         do ipv6-check;
         sleep 1;
     done
-    '
+    '>/usr/bin/ipv6-check
 
 Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
     
@@ -108,21 +108,3 @@ Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
     [Install]
     WantedBy=multi-user.target
     '
-
-
-Userskrpt in /usr/bin/ipv6-check schreiben
-
-
-    #!/bin/bash
-    # Dieses Skript befindet sich in /usr/bin/ipv6-check
-
-    output_file='ipv6.l'
-
-    function ipv6-check() {
-        [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 "${output_file}")" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>"${output_file}"
-    }
-  
-    while true;
-        do ipv6-check;
-        sleep 1;
-    done
