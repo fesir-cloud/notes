@@ -95,7 +95,7 @@ oder Skript(in Objektschreibweise) in /usr/bin/ipv6-check schreiben
     done
     '>/usr/bin/ipv6-check
 
-Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
+Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreiben
     
     printf '
     [Unit]
@@ -108,3 +108,10 @@ Systemd-Einheit in /etc/systemd/system/ipv6-check.service schreibeen
     [Install]
     WantedBy=multi-user.target
     '>/etc/systemd/system/ipv6-check.service
+
+Nun ist der Service mit systemd autommatisierbar..
+    
+    systemctl start ipv6-check.service
+    
+    systemctl enable ipv6-check.service
+    
