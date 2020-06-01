@@ -19,3 +19,6 @@ Folgende zeilen schreiben die aktuelle IPv6 Adresse in STOUT:
     V direkt in eine Logdatei("IPv6.log")
     
     while true;do wget -qO - nsx.de|tail -n 4|head -n 1 >IPv6.log;sleep 1;done
+
+# Schreibe IPv6 adrsse in v6.l und tsste alle 1 sekunde ob diese noch übrenstimmt, wenn nicht überschreibe v6.l
+    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(cat v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >v6.l||printf "IPv6 unchanged\n";sleep 1;done
