@@ -8,10 +8,14 @@ Folgende zeilen schreiben die aktuelle IPv6 Adresse in STOUT:
 
     wget -qO - http://stdio.be|grep title|egrep -o [:0-9a-f]+{8}
     
-    oder
+    V
     
     wget -qO - http://stdio.be|head -n 1|egrep -o [:0-9a-f]+{8}
     
-    oder
+    V
     
     wget -qO - nsx.de|tail -n 4|head -n 1
+    
+    V direkt in eine Logdatei("IPv6.log")
+    
+    while true;do wget -qO - nsx.de|tail -n 4|head -n 1 >IPv6.log;sleep 1;done
