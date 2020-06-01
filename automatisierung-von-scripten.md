@@ -30,7 +30,7 @@ Als  non HANGUP Prozess
     $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6.lipv6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6.l;sleep 1;done)&
 
 
-# Scripte als deadmon:
+# Scripte als Deamon:
 https://unix.stackexchange.com/questions/426862/proper-way-to-run-shell-script-as-a-daemon
 https://stackoverflow.com/questions/3430330/best-way-to-make-a-shell-script-daemon
 
