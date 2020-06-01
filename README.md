@@ -44,7 +44,7 @@ nohup *** & //schneller Weg über nohup
     while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
     _______________________________________________________________________________________________________________________
     
--
+.
     
     
     nohup $(while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 ipv6)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>ipv6;sleep 1;done) &
