@@ -30,3 +30,24 @@ Sleep enhanced alias
     read -rst 0.5; timeout=$?
     # echo $timeout
 
+Explanation
+
+-r specifies raw mode, which don't allow combined characters like "\" or "^".
+
+-s specifies silent mode, and because we don't need keyboard output.
+
+-p $'prompt' specifies the prompt, which need to be between $' and ' to let spaces and escaped characters. Be careful, you must put between single quotes with dollars symbol to benefit escaped characters, otherwise you can use simple quotes.
+
+-d $'\e' specifies escappe as delimiter charater, so as a final character for current entry, this is possible to put any character but be careful to put a character that the user can type.
+
+-n 1 specifies that it only needs a single character.
+
+-e specifies readline mode.
+
+-i $'Y' specifies Y as initial text in readline mode.
+
+-t 5 specifies a timeout of 5 seconds
+
+key serve in case you need to know the input, in -n1 case, the key that has been pressed.
+
+$? serve to know the exit code of the last program, for read, 142 in case of timeout, 0 correct input. Put $? in a variable as soon as possible if you need to test it after somes commands, because all commands would rewrite $?
