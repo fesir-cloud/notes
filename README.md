@@ -38,10 +38,17 @@ https://stackoverflow.com/questions/3430330/best-way-to-make-a-shell-script-daem
 
 nohup *** & //schneller Weg über nohup
 
-    nohup ./myscript 0<&- &> file.log &
-    nohup $(myscript) 0<&- &> file.log &
-  
-    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
- 
-    user@host:~$ printf " while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO luschyr@M192-AV3:~$ printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done">test.sh;sudo chmod +x test.sh;nohup ./test.sh 0<&- &> ipv6.log
 
+    while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done
+    
+    nohup ./myscript 0<&- &> file.log &
+    
+    nohup $(myscript) 0<&- &> file.log &
+ 
+Schreibt das script in ipv6check.sh, mmach esss ausführbar, und startet es mit nohup als nicht aufhängbarer Prozess.
+
+    printf " while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO luschyr@M192-AV3:~$ printf "while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done while true;do [[ "$(wget -qO - nsx.de|tail -n 4|head -n 1)" != "$(tail -n 1 v6.l)" ]] &&  wget -qO - nsx.de|tail -n 4|head -n 1 >>v6.l;sleep 1;done">ipv6check.sh;sudo chmod +x ipv6check.sh;nohup ./test.sh 0<&- &> ipv6.log
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    nohup ist ein primitives Werkzeug, welches ein Kommando so konfiguriert, dass es ein bestimmtes Signal ignoriert. Damit ist es noch weit davon entfernt, eine Lösung für alle möglichen Probleme eines asynchronen Programmbetriebs anzubieten, wie es etwa bei einem vollständigen Stapelverarbeitungssystem der Fall sein könnte.     --    Wikipedia (https://de.wikipedia.org/wiki/Nohup)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
