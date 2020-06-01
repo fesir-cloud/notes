@@ -1,0 +1,9 @@
+[Unit]
+Description=ipv6-check
+
+[Service]
+ExecStart=/usr/bin/ipv6-check
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
