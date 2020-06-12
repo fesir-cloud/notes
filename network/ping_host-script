@@ -1,0 +1,95 @@
+Ein kleines Script zum Durchpingen eines Netzwerkbereiches, mit Ausgabe der Antwortenden Hostnamen:
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+---------------------------------------------------------------------------------------------------------------------------
+
+ 
+
+ 
+
+hostnames.sh:
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+!#/bin/bash
+printf "Pinge dein Heimnetz von 192.168.";read c;tput cuu1;
+printf "Pinge dein Heimnetz von 192.168.$c.";read d;tput cuu1;
+printf "Pinge dein Heimnetz von 192.168.$c.$d bis 192.168.$c.";read z;
+z=$(expr $z + 1);
+i=$d;
+while $(test $i -lt $z && printf "true"||"false");
+do printf "$(host 192.168.$c.$i|egrep name)";
+done
+
+---------------------------------------------------------------------------------------------------------------------------
+
+ 
+
+#Hilfeseite zu "$test"
+
+#https://www.computerhope.com/unix/test.htm
+
+#
+
+#
+
+ 
+
+ 
+
+---------------------------------------------------------------------------------------------------------------------------
+
+ 
+
+#Folgende "$egreps" sollte nur noch die aktiven IPs und zugehörigen Hostnamen in einem Tabellenformat ausspucken(Ziel: SQL-feed)
+
+https://data36.com/how-to-import-data-into-sql-tables/
+
+
+ 
+
+sudo sh hotnames.sh |egrep "192.168.[0-9]*{1,3}\.[0-9]*{1,3}|name"
+
+ 
+
+#hilfe für di Regulären ausdrücke
+
+http://www.linux-praxis.de/linux1/befehle6.html
+
+
+ 
+
+---------------------------------------------------------------------------------------------------------------------------
+
+ ???????????????????
+
+# echo VS. printf
+
+# statt echo lieber printf benutzen: (Output gleich wie echo nur ohne newline; wichtig zur erstellung von .csv dateien)
+
+https://stackoverflow.com/questions/11193466/echo-without-newline-in-a-shell-script#11193533
+
+
+#oder mit echo -e, echo -n und mit "\c" arbeiten: -e aktiviert die funktion von "\" als escape-charater:
+
+# \c erzeugt keinen weiteren output, welcher danach käme
+
+# echo -n macht das gleiche wie echo "***\c\n", und zwar entfernt es die newline am Ende einer Zeile
+
+# eigentlich macht printf nichts anderes als echo -e
+
+# da printf ist der kürzere Input, also prädestiniert:
+
+# $(printf a) hat den gleichn Output wie $(echo -e "a\c\n")
+
+# außerdem funktionieren in den Anführungszeichen von printf variablen welche mit $ aufgerufen werden
