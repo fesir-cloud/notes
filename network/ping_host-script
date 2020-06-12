@@ -1,4 +1,4 @@
-Ein kleines Script zum Durchpingen eines Netzwerkbereiches, mit Ausgabe der Antwortenden Hostnamen:
+# Ein kleines Script zum Durchpingen eines Netzwerkbereiches, mit Ausgabe der Antwortenden Hostnamen:
 
  
 
@@ -37,7 +37,7 @@ done
 
 #Hilfeseite zu "$test"
 
-#https://www.computerhope.com/unix/test.htm
+https://www.computerhope.com/unix/test.htm
 
 #
 
