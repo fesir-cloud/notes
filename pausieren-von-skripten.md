@@ -1,4 +1,4 @@
-# Pause-Funktionen in bash-Skripten wie mit pause(DOS)
+# Pause-Funktionen in (ba)sh-Skripten wie mit pause(DOS)
 
 https://stackoverflow.com/questions/92802/what-is-the-linux-equivalent-to-dos-pause
 
