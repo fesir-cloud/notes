@@ -17,3 +17,4 @@ As @Ignacio Vazquez-Abrams answered in https://askubuntu.com/a/178741/905329:
         To re-enable the keyboard, execute the command xinput reattach <id#> <master#>, where master is that second number we noted down. So if the number was 3, you would do xinput reattach 10 3.
 
 
+https://forums.linuxmint.com/viewtopic.php?t=112013
