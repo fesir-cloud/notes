@@ -1,4 +1,4 @@
-  GNU nano 4.8                                                                                                  mysqlsetup.sh                                                                                                             #!/bin/bash
+#!/bin/bash
 
 wget -q https://dev.mysql.com/get/mysql-apt-config_0.8.15-1_all.deb
 
