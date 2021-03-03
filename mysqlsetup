@@ -1,0 +1,86 @@
+  GNU nano 4.8                                                                                                  mysqlsetup.sh                                                                                                             #!/bin/bash
+
+wget -q https://dev.mysql.com/get/mysql-apt-config_0.8.15-1_all.deb
+
+dpkg -i mysql-apt-config_0.8.15-1_all.deb
+
+apt update
+
+apt install mysql-server
+
+systemctl start mysql
+
+systemctl status mysql
+
+apt install mysql-workbench-community
+
+#       Qeulle: https://sysadminjournal.com/how-to-install-mysql-8-0-on-ubuntu-20-04/
+
+printf "bind-address    = 82.165.32.151\nport            = 3306\nuser            = root\n">/etc/mysql/mysql.conf.d/mysqld.cnf
+
+systemctl restart mysql.service
+
+
+# Im folgenden Konfigurationstool  werden die Sicherheitseinstellungen der MySQL-Instanz festgelegt:
+# Es wurde der Remote-Root-Zugriff erlaubt, die Passwortstärke wurde auf (mindestens) MEDIUM  gesetzt,
+# ein root Passwort gesetzt.
+mysql_secure_installation
+
+
+
+
+
+
+
+
+
+# Folgende Befehle wurden manuel in der mysql-Konsole durchgeführt.
+#
+# Diese wird mit folgendem Kommando betreten.
+#       mysql -u root -p
+#
+# Hier folgt eine automatisierte version:(Passwort nach jedem Befehl notwendig)
+#
+# Ändern des Passwortes des Users root
+# mysql -u root -Bse "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'hierpassworteingeben';" -p
+#
+#
+#
+mysql -u root -Bse "ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'hierpassworteingeben';"-p
+#
+#
+# Neuladen der Einstellungen:
+mysql -u root -Bse "flush privileges;" -p
+#
+# Mit folgendem Befehl wird überprüft ob die Einstellungen so übernommen wurden.
+mysql -u root -Bse "SELECT user,authentication_string,plugin,host,show_db_priv FROM mysql.user;" -p
+
+############################################################################################################
+
+
+
+
+
+# Nun ist der MySQL-Server am Localhost und über Standard TCP/IP over SSH erreichbar.
+#       Quelle: https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04-de
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#       https://www.cyberciti.biz/tips/how-do-i-enable-remote-access-to-mysql-database-server.html
