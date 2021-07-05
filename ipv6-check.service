@@ -1,5 +1,5 @@
 [Unit]
-Description=ipv6-check
+Description=Überprüft die ipv6 und schreibt in Datei
 
 [Service]
 ExecStart=/usr/bin/ipv6-check
